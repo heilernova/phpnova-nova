@@ -1,8 +1,8 @@
 {
-    "name": "phpnova/core",
+    "name": "phpnova/nova",
     "description": "Libreria para el desarrollo de API REST FULL",
     "type": "library",
-    "license": "MIT",
+    "license": "GPL-3.0-only",
     "autoload": {
         "psr-4": {
             "Phpnova\\Nova\\": "src/"
