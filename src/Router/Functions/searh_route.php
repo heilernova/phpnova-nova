@@ -4,7 +4,7 @@ use Phpnova\Nova\Http\HttpResponse;
 /**
  * Retorna la ruta que hace referencia al recurso buscaod por el usuario
  */
-function nv_router_searh_route(string $url, string $http_method, string $url_parent = ''): ?array {
+function nv_router_searh_route(string $url, string $http_method, string $url_parent = ''): array|HttpResponse|null {
 
     # Cargamos las rutas a variable
     $routes = $_ENV['nvx']['router']['routes'] ?? [];
@@ -56,7 +56,7 @@ function nv_router_searh_route(string $url, string $http_method, string $url_par
             # Middleware
             $result = $value();
             if (!is_null($result)) {
-                return $result instanceof HttpResponse ? $result : new HttpResponse('json', $result);
+                return $result instanceof HttpResponse ? $result : new HttpResponse($result);
             }
         }
     }

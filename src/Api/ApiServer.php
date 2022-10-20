@@ -57,7 +57,7 @@ class ApiServer
             require __DIR__ . '/../Router/Functions/searh_route.php';
             $route = nv_router_searh_route($url, $_SERVER['REQUEST_METHOD'], '');
 
-            if ($route) {
+            if (is_array($route)) {
                 # Cargamos los parametros de la ruta.
         
                 $url_explode = explode('/', $url);
@@ -105,7 +105,9 @@ class ApiServer
                     $response = new HttpResponse($res);
                 }
 
-            }else{
+            } else if ($route instanceof HttpResponse){
+                $response = $route;
+            } else {
                 $response = new HttpResponse('Not found', 404, 'json');
             }
         } catch (\Throwable $th) {
