@@ -1,0 +1,26 @@
+{
+    "name": "phpnova/core",
+    "description": "Libreria para el desarrollo de API REST FULL",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Phpnova\\Nova\\": "src/"
+        },
+        "files": [
+            "src/Bin/Functions/.functions.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Heile Nova",
+            "email": "heilernova@outlook.com"
+        }
+    ],
+    "scripts": {
+        "nv": "Phpnova\\Nova\\Bin\\Console\\Scripts::run"
+    },
+    "require-dev": {
+        "composer/composer": "^2.4"
+    }
+}

@@ -1,0 +1,7 @@
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+$app = apirest::init();
+$app->use('/', fn() => require __DIR__ . '/index.php'); //=> Cargamos la rutas de acceso
+$app->run();

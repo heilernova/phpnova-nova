@@ -1,0 +1,16 @@
+{
+    "timezone": "UTC",
+    "databases": {
+        "default": {
+            "type": "mysql",
+            "structure": "src/Database",
+            "connectionData": {
+                "hostname": "localhost",
+                "username": "root",
+                "password": "",
+                "database": "",
+                "post": null
+            }
+        }
+    }
+}
