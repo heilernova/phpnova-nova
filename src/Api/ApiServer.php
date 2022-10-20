@@ -99,9 +99,9 @@ class ApiServer
                 }
 
                 # Cargamos los datos del body
-                $res = $route['fun']();
+                $response = $route['fun']();
 
-                if (!($res instanceof HttpResponse)){
+                if (!($response instanceof HttpResponse)){
                     $response = new HttpResponse($res);
                 }
 
