@@ -2,7 +2,7 @@
 namespace Phpnova\Nova\Database;
 
 use PDO;
-
+require_once __DIR__ . '/../Bin/enviroments.php';
 class DBConfig
 {
     /**
@@ -19,11 +19,6 @@ class DBConfig
     public static function setTimezone(string $timezone): void
     {
         $_ENV['nvx']['database']['timezone'] = $timezone;
-    }
-
-    public static function setDefaultPDO(PDO $pdo): void
-    {
-        $_ENV['nvx']['database']['pdo'] = $pdo;
     }
 
     /**

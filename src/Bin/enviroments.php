@@ -7,8 +7,10 @@ $_ENV['nvx']['config'] = []; # La configuración del app.json
 $_ENV['nvx']['directories']['upload'] = "files";
 $_ENV['nvx']['directories']['project'] = "";
 
-$_ENV['nvx']['database']['pdo'] = null; # PDO por defautl
-$_ENV['nvx']['database']['timezone'] = null; # PDO por defautl
+$_ENV['nvx']['db']['timezone'] = null; # PDO por defautl
+$_ENV['nvx']['db']['pdo'] = null; # PDO por defautl
+$_ENV['nvx']['db']['client'] = null;
+
 $_ENV['nvx']['database']['handles']['query']['parce-writing-style'] = null;
 $_ENV['nvx']['database']['handles']['result']['parce-writing-style'] = null;
 $_ENV['nvx']['database']['list'] = []; # Conexiones a las bases de datos
