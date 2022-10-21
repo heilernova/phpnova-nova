@@ -2,6 +2,7 @@
 namespace Phpnova\Nova\Api;
 
 use Exception;
+use IntlBreakIterator;
 use Phpnova\Nova\Bin\ErrorCore;
 use Phpnova\Nova\Http\HttpFile;
 use Phpnova\Nova\Http\HttpResponse;
@@ -72,10 +73,13 @@ class ApiServer
             
                 # Mapeamos el contenido
                 switch(explode(';', apache_request_headers()['Content-Type'] ?? '')[0]){
-                    case "application/json": 
-                        $_ENV['nvx']['request']['body'] = json_decode(file_get_contents("php://input"));
+                    case "application/json":
+                        $body_conent = file_get_contents("php://input");
+                        if ($body_conent == '') break;
+
+                        $_ENV['nvx']['request']['body'] = json_decode($body_conent);
                         if (json_last_error() != JSON_ERROR_NONE) {
-                            throw new Exception("El formato del contenido es erroneo: " . json_last_error_msg());
+                            throw new Exception("El contendio JSON enviado en el boyd tiene un error : " . json_last_error_msg());
                         }
                         break;
                     case "multipart/form-data":
