@@ -102,7 +102,7 @@ class ApiServer
                 $response = $route['fun']();
 
                 if (!($response instanceof HttpResponse)){
-                    $response = new HttpResponse($res);
+                    $response = new HttpResponse($response);
                 }
 
             } else if ($route instanceof HttpResponse){
