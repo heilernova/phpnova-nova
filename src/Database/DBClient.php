@@ -118,22 +118,27 @@ class DBClient
             $values = (array)$values;
             $fields = "";
             $values_sql = "";
-
+            $params = [];
             foreach ($values as $key => $val) {
+                $write_style = $this->config['query_parce_writing_style'] ?? null;
+                if ($write_style) {
+                    $key = $write_style == 'snakecase' ? nv_parse_camelcase_to_snakecase($key) : nv_parse_snakecase_to_camelcase($key);
+                }
+
                 $fields .= ", `$key`";
                 if (is_bool($val)) {
                     $values_sql .= ", " . ($val ? 'TRUE' : 'FALSE');
-                    unset($values[$key]);
                     continue;
                 }
 
+                $params[$key] = $val;
                 $values_sql .= ", :$key";
             }
 
             $values_sql = ltrim($values_sql, ', ');
             $fields = ltrim($fields, ', ');
 
-            $res = $this->exec("INSERT INTO $table($fields) VALUES($values_sql)" . ($returning ? " RETURNING $returning"  : "") , (array)$values);
+            $res = $this->exec("INSERT INTO $table($fields) VALUES($values_sql)" . ($returning ? " RETURNING $returning"  : "") , $params);
             return $res ? new DBResult($res, $this->config) : false;
         } catch (\Throwable $th) {
             throw new ErrorCore($th);
@@ -155,6 +160,10 @@ class DBClient
             $sql_parms = [];
 
             foreach($values as $key => $val) {
+                $write_style = $this->config['query_parce_writing_style'] ?? null;
+                if ($write_style) {
+                    $key = $write_style == 'snakecase' ? nv_parse_camelcase_to_snakecase($key) : nv_parse_snakecase_to_camelcase($key);
+                }
 
                 if (is_bool($val)) {
                     $sql_values .= ", `$key` = " . ($val ? 'TRUE' : 'FALSE');
