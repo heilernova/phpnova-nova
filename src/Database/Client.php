@@ -43,10 +43,11 @@ class Client
     {
         try {
             if ($this->config['driver_name'] == 'mysql') {
-                $this->pdo->exec("SET TIME_ZONE = $timezone");
+                $sql = "SET TIME_ZONE = '$timezone'";
+                $this->pdo->exec($sql);
             }
         } catch (\Throwable $th) {
-            throw new ErrorCore($th);
+            throw new ErrorCore(new Exception("Error al establecer la zona horaria\n Error: " . $th->getMessage() . "\nSQL: $sql"));
         }
     }
     
@@ -122,7 +123,7 @@ class Client
             $values_sql = "";
             $params = [];
             foreach ($values as $key => $val) {
-                $write_style = $this->config['query_parce_writing_style'] ?? null;
+                $write_style = $_ENV['nv']['db']['writing_style']['queris'] ?? null;
                 if ($write_style) {
                     $key = $write_style == 'snakecase' ? nv_parse_camelcase_to_snakecase($key) : nv_parse_snakecase_to_camelcase($key);
                 }
@@ -162,7 +163,7 @@ class Client
             $sql_parms = [];
 
             foreach($values as $key => $val) {
-                $write_style = $this->config['query_parce_writing_style'] ?? null;
+                $write_style = $_ENV['nv']['db']['writing_style']['queris'] ?? null;
                 if ($write_style) {
                     $key = $write_style == 'snakecase' ? nv_parse_camelcase_to_snakecase($key) : nv_parse_snakecase_to_camelcase($key);
                 }
@@ -173,7 +174,7 @@ class Client
                 }
 
                 $sql_parms[$key] = $val;
-                $sql_values .= ", `$key`";
+                $sql_values .= ", `$key` = :$key";
             }
 
             $sql_values = ltrim($sql_values, ', ');
