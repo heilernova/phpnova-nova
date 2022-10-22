@@ -5,9 +5,8 @@ use PDO;
 use PDOStatement;
 
 require_once __DIR__ . '/Functions/db_parce_result.php';
-use function Phpnova\Nova\is_json_structure;
 
-class DBResult
+class Result
 {
     public readonly int $rowCount;
     public readonly array $rows;

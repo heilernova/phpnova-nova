@@ -35,3 +35,5 @@ $_ENV['nvx']['request']['device'] = '';
 
 
 $_ENV['nvx']['response'][''] = "";
+
+require __DIR__ . '/../Database/_env.php';

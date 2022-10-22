@@ -3,7 +3,7 @@ namespace Phpnova\Nova\Database;
 
 use Phpnova\Nova\Bin\ErrorCore;
 
-class DBView
+class View
 {
     public function get(){
         try {

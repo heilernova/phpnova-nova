@@ -4,19 +4,19 @@ namespace Phpnova\Nova\Database;
 use PDO;
 use Phpnova\Nova\Bin\ErrorCore;
 
-class DBTable
+class Table
 {   
-    public function __construct()
+    public function __construct(private ?string $table = null)
     { }
     
     private function getTable(): string
     {
-        return $this->table = $_ENV['nvx']['db']['table-name'];
+        return  $this->table ? $this->table : $_ENV['nv']['db']['table-name'];
     }
 
-    private function getClient(): DBClient
+    private function getClient(): Client
     {
-        return $_ENV['nvx']['db']['client'];
+        return $_ENV['nv']['db']['client'];
     }
 
     public function get(string $condition, array $params = null): ?object
@@ -56,7 +56,7 @@ class DBTable
     public function update(array $values, string $condition, array $params = null): bool
     {
         try {
-            return $this->getClient()->execUpdate($values, $condition, $this->getTable(), $params)->rowsCount > 0;
+            return $this->getClient()->execUpdate($values, $condition, $this->getTable(), $params)->rowCount > 0;
         } catch (\Throwable $th) {
             throw new ErrorCore($th);
         }

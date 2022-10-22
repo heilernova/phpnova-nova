@@ -2,12 +2,11 @@
 namespace Phpnova\Nova\Database;
 
 use Exception;
-use LDAP\Result;
 use PDO;
 use PDOStatement;
 use Phpnova\Nova\Bin\ErrorCore;
 
-class DBClient
+class Client
 {
     private array $config = [];
     private readonly PDO $pdo;
@@ -18,25 +17,19 @@ class DBClient
             if ($pdo) {
                 $this->pdo = $pdo;
             } else {
-                if (is_null($_ENV['nvx']['db']['pdo'])){
+                if (is_null($_ENV['nv']['db']['pdo'])){
                     throw new Exception("No se ha definido el PDO por default");
                 }
                 /** @var POD */
-                $this->pdo = $_ENV['nvx']['db']['pdo'];
+                $this->pdo = $_ENV['nv']['db']['pdo'];
             }
 
             $this->config['driver_name'] = $this->pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
-            if (is_string($_ENV['nvx']['db']['timezone'])) {
-                $this->setTimezone($_ENV['nvx']['db']['timezone']);
+            if (is_string($_ENV['nv']['db']['timezone'] )) {
+                $this->setTimezone($_ENV['nv']['db']['timezone']);
             }
 
-            if (is_string($_ENV['nvx']['database']['handles']['query']['parce-writing-style'])){
-                $this->config['query_parce_writing_style'] = $_ENV['nvx']['database']['handles']['query']['parce-writing-style'];
-            }
-
-            if (is_string($_ENV['nvx']['database']['handles']['result']['parce-writing-style'])){
-                $this->config['result_parce_writing_style'] = $_ENV['nvx']['database']['handles']['result']['parce-writing-style'];
-            }
+            
         } catch (\Throwable $th) {
             throw new ErrorCore($th);
         }
@@ -84,8 +77,16 @@ class DBClient
             $stmt->execute($params);
             return $stmt;
         } catch (\Throwable $th) {
-            $message = "** Error al ejecutar las cunsulta SQL ** \n\n";
-            throw new ErrorCore($th);
+            $message = "# Error al ejecutar las cunsulta SQL \n\n";
+            $message .= "Message: " . $th->getMessage();
+            $message .= "\nSQL: $sql";
+            if ($params) {
+                $message .= "\nParameters: ";
+                foreach ($params as $key => $val) {
+                    $message .= "\n - $key : " . gettype($val) . " => $val ";
+                }
+            }
+            throw new Exception($message, (int)$th->getCode(), $th);
         }
 
         return false;
@@ -97,11 +98,12 @@ class DBClient
      * @param array|null $params SQL query parameters
      * @return DBResult|null
      */
-    public function execCommnad(string $sql, array $params = null): DBResult|false
+    public function execCommnad(string $sql, array $params = null): Result|false
     {
         try {
             $stmt = $this->exec($sql, $params);
-            return $stmt ? new DBResult($stmt, $this->config) : false;
+            
+            return $stmt ? new Result($stmt, $this->config) : false;
         } catch (\Throwable $th) {
             throw new ErrorCore($th);
         }
@@ -112,7 +114,7 @@ class DBClient
      * @param array|object $values It can be an associative array or an object, where the key refers to the table field
      * @param string $table Name of the table to which data will be inserted
      */
-    public function execInsert(array|object $values, string $table, string $returning = null): DBResult|false
+    public function execInsert(array|object $values, string $table, string $returning = null): Result|false
     {
         try {
             $values = (array)$values;
@@ -139,7 +141,7 @@ class DBClient
             $fields = ltrim($fields, ', ');
 
             $res = $this->exec("INSERT INTO $table($fields) VALUES($values_sql)" . ($returning ? " RETURNING $returning"  : "") , $params);
-            return $res ? new DBResult($res, $this->config) : false;
+            return $res ? new Result($res, $this->config) : false;
         } catch (\Throwable $th) {
             throw new ErrorCore($th);
         }
@@ -152,7 +154,7 @@ class DBClient
      * @param array $params Condition parameteres
      * @param string $table 
      */
-    public function execUpdate(array|object $values, string $condition, string $table, array $params = null): DBResult|false
+    public function execUpdate(array|object $values, string $condition, string $table, array $params = null): Result|false
     {
         try {
             $values = (array)$values;
@@ -171,6 +173,7 @@ class DBClient
                 }
 
                 $sql_parms[$key] = $val;
+                $sql_values .= ", `$key`";
             }
 
             $sql_values = ltrim($sql_values, ', ');
@@ -195,7 +198,7 @@ class DBClient
             
             $res = $this->exec("UPDATE `$table` SET $sql_values WHERE $sql_condition", [...$sql_parms, ...$sql_condition_params]);
 
-            return $res ? new DBResult($res, $this->config) : false;
+            return $res ? new Result($res, $this->config) : false;
 
         } catch (\Throwable $th) {
             throw new ErrorCore($th);
@@ -205,11 +208,11 @@ class DBClient
     /**
      * @return int Returns the number of rows removed
      */
-    public function execDelete(string $table, string $condition, array $params = null): DBResult|false
+    public function execDelete(string $table, string $condition, array $params = null): Result|false
     {
         try {
             $res = $this->exec("DELETE FROM $table WHERE $condition", $params);
-            return $res ? new DBResult($res, $this->config) :  false;
+            return $res ? new Result($res, $this->config) :  false;
         } catch (\Throwable $th) {
             throw new ErrorCore($th);
         }

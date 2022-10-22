@@ -43,16 +43,13 @@ function db_parce_result(array $values, PDOStatement $stmt, array $config)
             }
 
             $name_field = $column_meta['name'];
-            $writing_style = $config['result_parce_writing_style'] ?? null;
+            $writing_style = $_ENV['nv']['db']['writing_style']['results'] ?? null;
 
             if ($writing_style == 'camelcase') $name_field = nv_parse_snakecase_to_camelcase($name_field);
             if ($writing_style == 'snakecase') $name_field = nv_parse_camelcase_to_snakecase($name_field);
 
-            // if ($writing_style == 'snakecase')
-
             $params[$name_field] = $value;
         }
-
     }
     return (object)$params;
 }

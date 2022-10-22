@@ -4,7 +4,7 @@ namespace Phpnova\Nova\Database;
 use PDO;
 use Phpnova\Nova\Bin\ErrorCore;
 
-class DBConnect
+class Connect
 {
     public function __construct(private bool $set_dafault = true)
     {
@@ -14,9 +14,9 @@ class DBConnect
     private function setDefault(PDO $pdo): PDO
     {
         if ($this->set_dafault){
-            $_ENV['nvx']['db']['pdo'] = $pdo;
-            $_ENV['nvx']['db']['client'] = new DBClient();
-            $_ENV['nvx']['db']['table'] = new DBTable();
+            $_ENV['nv']['db']['pdo'] = $pdo;
+            $_ENV['nv']['db']['client'] = new Client();
+            $_ENV['nv']['db']['table'] = new Table();
         }
         return $pdo;
     }
@@ -24,7 +24,7 @@ class DBConnect
     /**
      * Crea una conexión PDO a MYSQL con los parametros ingresado
      */
-    public function mysql(string $username, string $password, string $database, string $hostname = 'localhost', string $port = null): PDO
+    public function mysql(string $username, string $password, string $database, string $hostname = 'localhost', string $port = null, ?string $timezone = null): PDO
     {
         try {
             return $this->setDefault(new PDO("mysql:host=$hostname; dbname=$database;" . ($port ? " port=$port;" : ''), $username, $password));
