@@ -122,7 +122,7 @@ class ApiServer
             $message .= "\nLine: " . $th->getLine();
         
 
-            $response = new HttpResponse($message, type: 'text');
+            $response = new HttpResponse($message, type: 'text', status: 500);
         }
 
         $data = $response->getData();
