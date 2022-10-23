@@ -22,9 +22,9 @@ class Templates
     {
         return str_replace('$dir', $dir, file_get_contents(__DIR__ . '/Templates/index.txt'));
     }
-    public static function indexJSON(): string
+    public static function indexJSON(string $dir): string
     {
-        return file_get_contents(__DIR__ . '/Templates/index.json.txt');
+        return str_replace('$dir', $dir, file_get_contents(__DIR__ . '/Templates/index.json.txt'));
     }
 
     public static function htaccess(): string

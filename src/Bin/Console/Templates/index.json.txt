@@ -2,13 +2,7 @@
     "databases": {
         "default": {
             "type": "mysql",
-            "connectionData": {
-                "hostname": "localhost",
-                "username": "root",
-                "password": "",
-                "database": "test",
-                "post": null
-            }
+            "structure": "$dir/Database/"
         }
     }
 }

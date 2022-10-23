@@ -1,23 +1,6 @@
 <?php
 namespace Phpnova\Nova\Bin\Console;
 
-$app_json = [
-    'timezone' => 'UTC',
-    'databases' => [
-        'default' => [
-            'type' => 'mysql',
-            'structure' => 'src/databases/default',
-            'connectionData' => [
-                'hostname' => 'localhost',
-                'username' => 'root',
-                'password' => '',
-                'database' => '',
-                'port' => null
-            ]
-        ]
-    ]
-];
-
 $dir = Scripts::getDir();
 $dir_src = "src";
 $io = Scripts::getIO();
@@ -40,7 +23,7 @@ if (file_exists("$dir/$dir_src") && count(scandir("$dir/$dir_src"))) {
 } 
 
 Scripts::filesAdd("$dir/.htaccess", Templates::htaccess());
-Scripts::filesAdd("$dir/index.json", Templates::indexJSON());
+Scripts::filesAdd("$dir/index.json", Templates::indexJSON($dir_src));
 Scripts::filesAdd("$dir/index.php", Templates::index($dir_src));
 Scripts::filesAdd("$dir/env.json", Templates::getEnv());
 Scripts::filesAdd("$dir/$dir_src/app.run.php", Templates::getAppRun());
@@ -49,6 +32,7 @@ Scripts::filesAdd("$dir/$dir_src/Bin/BaseModel.php", "");
 Scripts::filesAdd("$dir/$dir_src/Bin/BaseController.php", "");
 Scripts::filesAdd("$dir/$dir_src/Bin/BaseEntity.php", "");
 
-Scripts::filesAdd("$dir/$dir_src/Databases/default/structure.sql", "-- Aqui ingrese la estructura de la base de datos por defecto");
+Scripts::filesAdd("$dir/$dir_src/Database/structure.sql", "-- Aqui ingrese la estructura de la base de datos por defecto");
+Scripts::filesAdd("$dir/$dir_src/Database/inserts.sql", "-- Aqui ingrese los datos a insertar");
 
 Scripts::filesSave();
