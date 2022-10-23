@@ -18,7 +18,8 @@
         }
     ],
     "scripts": {
-        "nv": "Phpnova\\Nova\\Bin\\Console\\Scripts::run"
+        "nv": "Phpnova\\Nova\\Bin\\Console\\Scripts::run",
+        "nvd": "Phpnova\\Nova\\Bin\\Console\\Scripts::restoreTest"
     },
     "require-dev": {
         "composer/composer": "^2.4"

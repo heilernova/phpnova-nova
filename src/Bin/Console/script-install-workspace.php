@@ -27,7 +27,7 @@ Scripts::filesAdd("$dir/index.json", Templates::indexJSON($dir_src));
 Scripts::filesAdd("$dir/index.php", Templates::index($dir_src));
 Scripts::filesAdd("$dir/env.json", Templates::getEnv());
 Scripts::filesAdd("$dir/$dir_src/app.run.php", Templates::getAppRun());
-Scripts::filesAdd("$dir/$dir_src/app.router.php", Templates::getAppRun());
+Scripts::filesAdd("$dir/$dir_src/app.router.php", Templates::getAppRotuer());
 Scripts::filesAdd("$dir/$dir_src/Bin/BaseModel.php", "");
 Scripts::filesAdd("$dir/$dir_src/Bin/BaseController.php", "");
 Scripts::filesAdd("$dir/$dir_src/Bin/BaseEntity.php", "");

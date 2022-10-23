@@ -6,5 +6,5 @@ use Phpnova\Nova\Router\Route;
 
 Route::get('', function(){
 
-    return "Hola munod";
+    return "Hola mundo";
 });

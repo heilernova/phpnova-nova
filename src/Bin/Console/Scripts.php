@@ -12,6 +12,12 @@ class Scripts
     private static string $dir = "";
     private static array $files = [];
 
+    public static function restoreTest(Event $event)
+    {
+        self::$dir = dirname($event->getComposer()->getConfig()->getConfigSource()->getName());
+        require __DIR__ . '/script-delete-test.php';
+    }
+
     public static function run(Event $event)
     {
         self::$io = $event->getIO();

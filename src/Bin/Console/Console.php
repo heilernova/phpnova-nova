@@ -19,4 +19,10 @@ class Console
         $size = file_exists($name) ? filesize($name) : 0;
         echo "\e[1;36mUPDATE:\e[0m $name ( $size bytes )\n";
     }
+    
+    public static function fileDelete(string $name): void
+    {
+        echo "\e[0;31mDELETE:\e[0m $name\n";
+
+    }
 }
