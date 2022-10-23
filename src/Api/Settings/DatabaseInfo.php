@@ -9,7 +9,7 @@ use Phpnova\Nova\Database\Connect;
 class DatabaseInfo
 {
     public readonly string $type;
-    public function __construct(private array $data)
+    public function __construct(private array $data, private ?string $path = null)
     {
         $this->type = $data['type'];
     }
@@ -49,5 +49,15 @@ class DatabaseInfo
         } catch (\Throwable $th) {
             throw new ErrorCore($th);
         }
+    }
+
+    public function getStructure(): string
+    {
+        $files = glob(ltrim($this->path, '/') . "*");
+        $scritps = "";
+        foreach($files as $file) {
+            $scritps .= "\n\n" . file_get_contents($file);
+        }
+        return "SET FOREIGN_KEY_CHECKS = 0;$scritps\n\nSET FOREIGN_KEY_CHECKS = 1;";
     }
 }

@@ -26,10 +26,19 @@ class Scripts
         $cmd = self::getArg();
 
         self::$dir = dirname($event->getComposer()->getConfig()->getConfigSource()->getName());
-
-        switch ($cmd) {
-            case "i": require __DIR__ . '/script-install-workspace.php'; return;
-            case "dbi": require __DIR__ . '/script-install-db.php'; return;
+        try {
+            switch ($cmd) {
+                case "i": require __DIR__ . '/script-install-workspace.php'; return;
+                case "dbi": require __DIR__ . '/script-install-db.php'; return;
+            }
+        } catch (\Throwable $th) {
+            Console::log("");
+            Console::log("------------------------------------------");
+            Console::log("** Error **");
+            Console::log("Message: " . $th->getMessage());
+            Console::log("File: " . $th->getFile());
+            Console::log("Line: " . $th->getLine());
+            Console::log("------------------------------------------");
         }
     }
 
