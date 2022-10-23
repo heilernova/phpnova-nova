@@ -2,26 +2,30 @@
 namespace Phpnova\Nova\Api;
 
 use Exception;
-use IntlBreakIterator;
 use Phpnova\Nova\Bin\ErrorCore;
 use Phpnova\Nova\Http\HttpFile;
 use Phpnova\Nova\Http\HttpResponse;
 use Phpnova\Nova\Http\Request;
 use Phpnova\Nova\Router\Route;
 
+require_once __DIR__ . '/Functions/nv_api_load_config.php';
+
 class ApiServer
 {
     public function __construct()
     {
+
         # Buscamos el archivo autoload para obtener la ruta del directorio 
         foreach (get_required_files() as $file) {
             if (str_ends_with($file, 'autoload.php')) {
                 $dir = dirname($file, 2);
                 $_ENV['nvx']['directories']['project'] = $dir;
                 $_ENV['nvx']['directories']['files'] = "$dir/files"; # Directorio por defecto para guardar archivo
+                $_ENV['nv']['api']['dir'] = $dir;
                 break;
             }
         }
+    
     }
 
     public function use(mixed ...$arg): void
@@ -51,6 +55,9 @@ class ApiServer
     public function run(): never
     {
         try {
+
+            nv_api_load_config();
+
             $url = "/" . urldecode(explode( '?', trim(substr($_SERVER['REQUEST_URI'], strlen(dirname($_SERVER['SCRIPT_NAME']))), "/"))[0]) . "/";
             $_ENV['nvx']['request']['url'] = $url;
             $_ENV['nvx']['request']['method'] = $_SERVER['REQUEST_METHOD'];

@@ -1,8 +1,16 @@
 <?php
 namespace Phpnova\Nova\Api;
 
-class Settigns
+use Phpnova\Nova\Api\Settings\Databases;
+
+class Settings
 {
+    private Databases $databases;
+
+    public function __construct()
+    {
+        $this->databases = new Databases;
+    }
     /**
      * Estable el nombre del directorio donde se aguardaran los archivos
      */
@@ -11,8 +19,8 @@ class Settigns
 
     }
 
-    public function getDatabase()
+    public function getDatabases():Databases
     {
-        
+        return $this->databases;
     }
 }

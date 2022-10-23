@@ -1,6 +1,9 @@
 <?php
 namespace Phpnova\Nova\Database;
 
+use Exception;
+use Phpnova\Nova\Bin\ErrorCore;
+
 class db
 {
     public static function getConfig(): Config
@@ -17,5 +20,14 @@ class db
     {
         $_ENV['nv']['db']['table-name'] = $table;
         return $_ENV['nv']['db']['table'];
+    }
+
+    public static function getClient(): Client
+    {
+        try {
+            return $_ENV['nv']['db']['client'];
+        } catch (\Throwable $th) {
+            throw new ErrorCore(new Exception('No se definido la coneción por default'));
+        }
     }
 }

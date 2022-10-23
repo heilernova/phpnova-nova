@@ -55,14 +55,15 @@ class Scripts
 
             $file_exists = $file[0];
             $fopen = fopen($file[0], $file_exists ? 'w' : 'a');
-            fputs($fopen, $file[0]);
+            fputs($fopen, $file[1]);
             fclose($fopen);
 
+            $dir = substr($file[0], $len);
             if ($file_exists) {
-                Console::fileUpdate($file[0]);
+                Console::fileUpdate($dir);
                 continue;
             }
-            Console::fileCreate($file[0]);
+            Console::fileCreate($dir);
         }
     }
 }

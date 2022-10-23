@@ -1,0 +1,10 @@
+<?php
+
+use Phpnova\Nova\apirest;
+use Phpnova\Nova\Database\db;
+use Phpnova\Nova\Router\Route;
+
+Route::get('', function(){
+
+    return "Hola munod";
+});

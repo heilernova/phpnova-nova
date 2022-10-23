@@ -1,5 +1,12 @@
+/vendor/
+
+
 /test/
 /api/
 /www/
-/vendor/
-.nvapp.json
+/config/
+.htaccess
+app.json
+index.json
+env.json
+index.php

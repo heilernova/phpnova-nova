@@ -1,8 +1,6 @@
 <?php
 namespace Phpnova\Nova\Bin\Console;
 
-use SplFileInfo;
-
 $app_json = [
     'timezone' => 'UTC',
     'databases' => [
@@ -41,11 +39,12 @@ if (file_exists("$dir/$dir_src") && count(scandir("$dir/$dir_src"))) {
 
 } 
 
-Console::log("n: $dir_src");
-# Creamos el archivo .nvapp.json
-Scripts::filesAdd("$dir/.nvapp.json", "");
-Scripts::filesAdd("$dir/$dir_src/app.run.php", "");
-Scripts::filesAdd("$dir/$dir_src/app.router.php", "");
+Scripts::filesAdd("$dir/.htaccess", Templates::htaccess());
+Scripts::filesAdd("$dir/index.json", Templates::indexJSON());
+Scripts::filesAdd("$dir/index.php", Templates::index($dir_src));
+Scripts::filesAdd("$dir/env.json", Templates::getEnv());
+Scripts::filesAdd("$dir/$dir_src/app.run.php", Templates::getAppRun());
+Scripts::filesAdd("$dir/$dir_src/app.router.php", Templates::getAppRun());
 Scripts::filesAdd("$dir/$dir_src/Bin/BaseModel.php", "");
 Scripts::filesAdd("$dir/$dir_src/Bin/BaseController.php", "");
 Scripts::filesAdd("$dir/$dir_src/Bin/BaseEntity.php", "");
