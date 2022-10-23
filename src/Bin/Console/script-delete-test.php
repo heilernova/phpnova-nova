@@ -20,3 +20,7 @@ $res = nv_delete_dir("$dir/api/");
 foreach($res as $file) {
     Console::fileDelete(substr($file, strlen($dir) + 1));
 }
+
+$f = fopen("$dir/.gitignore", 'w');
+fputs($f, "/vendor/");
+fclose($f);

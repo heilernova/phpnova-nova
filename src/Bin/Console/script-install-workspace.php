@@ -10,7 +10,7 @@ if (file_exists("$dir/$dir_src") && count(scandir("$dir/$dir_src"))) {
     $res = null;
     while (is_null($res)){
         $res = $io->ask(" - El directorio [src] esta en suso, ¿desea cargar los archivos aun asi? ( si/no ): ");
-        
+
         if (is_null($res)) continue;
 
         if (is_string($res)) {
@@ -19,8 +19,23 @@ if (file_exists("$dir/$dir_src") && count(scandir("$dir/$dir_src"))) {
             }
         }
     }
+}
 
-} 
+# Actualizamos el gitignore
+$content = file_exists("$dir/.gitignore") ? file_get_contents("$dir/.gitignore") : "";
+$fopen = fopen("$dir/.gitignore", 'a');
+
+$ignores = ['.htaccess', 'index.json', 'env.json', "/$dir/"];
+$text = "";
+foreach($ignores as $text) {
+    if (!str_contains($content, $text)) {
+        $text .= "\n$text";
+    }
+}
+
+if (strlen($text) > 0) {
+    fputs($fopen, "\n\n$text");
+}
 
 Scripts::filesAdd("$dir/.htaccess", Templates::htaccess());
 Scripts::filesAdd("$dir/index.json", Templates::indexJSON($dir_src));
