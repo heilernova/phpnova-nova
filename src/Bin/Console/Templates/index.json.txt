@@ -1,4 +1,5 @@
 {
+    "timezone": "UTC",
     "dir": "$dir",
     "databases": {
         "default": {
