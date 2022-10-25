@@ -25,7 +25,7 @@ class Client
             }
 
             $this->config['driver_name'] = $this->pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
-            if (is_string($_ENV['nv']['db']['timezone'] )) {
+            if (is_string($_ENV['nv']['db']['timezone'])) {
                 $this->setTimezone($_ENV['nv']['db']['timezone']);
             }
 
@@ -55,14 +55,8 @@ class Client
     {
         return $this->pdo;
     }
-
-    public function getConfig()
-    {
-
-    }
     
     /** Queries SQL */
-
 
     private function exec(string $sql, array $params = null): PDOStatement|false
     {
@@ -97,7 +91,6 @@ class Client
      * Execute an SQL Command in the database
      * @param string $sql SQL command to send
      * @param array|null $params SQL query parameters
-     * @return DBResult|null
      */
     public function execCommnad(string $sql, array $params = null): Result|false
     {
@@ -231,6 +224,7 @@ class Client
             throw new ErrorCore($th);
         }
     }
+
     /**
      * @param string $name Nombre del procedimiento a ejecutar.
      * @param array|null $params Array asociativo de los parametros
