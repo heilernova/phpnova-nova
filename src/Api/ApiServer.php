@@ -6,7 +6,7 @@ use Phpnova\Nova\Bin\ErrorCore;
 use Phpnova\Nova\Http\HttpFile;
 use Phpnova\Nova\Http\HttpResponse;
 use Phpnova\Nova\Http\Request;
-use Phpnova\Nova\HttpRequest;
+use Phpnova\Nova\Http\HttpRequest;
 use Phpnova\Nova\Router\Route;
 
 require_once __DIR__ . '/Functions/nv_api_load_config.php';

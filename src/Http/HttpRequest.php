@@ -19,7 +19,7 @@ class HttpRequest
         $this->ip = $_ENV['nvx']['request']['ip'];
         $this->body = $_ENV['nvx']['request']['body'];
         $this->params = $_ENV['nvx']['request']['params'];
-        $this->paramsURL = $_ENV['nvx']['request']['params-url'];
+        $this->paramsURL = $_ENV['nvx']['request']['query-params'];
         $this->platform = $_ENV['nvx']['request']['platform'];
         $this->device = $_ENV['nvx']['request']['device'];
     }
