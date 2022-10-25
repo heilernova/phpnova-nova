@@ -1,5 +1,5 @@
 <?php
-namespace Phpnova\Nova;
+namespace Phpnova\Nova\Http;
 
 class HttpRequest
 {
