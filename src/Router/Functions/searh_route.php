@@ -1,4 +1,6 @@
 <?php
+
+use Phpnova\Nova\Http\HttpRequest;
 use Phpnova\Nova\Http\HttpResponse;
 
 /**
@@ -54,7 +56,7 @@ function nv_router_searh_route(string $url, string $http_method, string $url_par
             }
         } else {
             # Middleware
-            $result = $value();
+            $result = $value(new HttpRequest());
             if (!is_null($result)) {
                 return $result instanceof HttpResponse ? $result : new HttpResponse($result);
             }
