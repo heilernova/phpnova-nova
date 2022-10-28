@@ -1,5 +1,7 @@
 <?php
 
+use Phpnova\Nova\Http\HttpFuns;
+
 function nv_api_load_config(): void
 {
     $dir = $_ENV['nv']['api']['dir'];
@@ -37,4 +39,10 @@ function nv_api_load_config(): void
     $_ENV['nv']['api']['config'] = json_decode(file_get_contents($dir_config), true);
 
     if (json_last_error() != JSON_ERROR_NONE) throw new Exception("El contenido del env.json es erroneo");
+
+    # Cargamos la información de la Solicitud HTTTP
+    $_ENV['nvx']['request']['ip'] = HttpFuns::getIP();
+    $_ENV['nvx']['request']['platform'] = HttpFuns::getPlatform();
+    $_ENV['nvx']['request']['device'] = HttpFuns::getDevice();
+
 }
