@@ -101,15 +101,17 @@ class ApiServer
                             });
 
 
-                            $_ENV['nvx']['request']['files'] = array_map(array: $_FILES, callback: fn($data) => new HttpFile($data));
                             break;
                         }
-
+                        
                         require __DIR__ . '/../Http/Scripts/script-http-parce-body.php';
                         break;
                     default: break;
                 }
-
+                
+                # Cargamos los archivos
+                $_ENV['nvx']['request']['files'] = array_map(array: $_FILES, callback: fn($data) => new HttpFile($data));
+                
                 # Cargamos los datos del body
                 $response = $route['fun'](new HttpRequest());
 
