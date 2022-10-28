@@ -38,7 +38,7 @@ function nv_router_searh_route(string $url, string $http_method, string $url_par
                         $url_new = $url;
                     }
 
-                    $result = nv_router_searh_route($url_new, $http_method, ltrim($url_parent, '/') . '/' . ltrim($value['path'], '/'));
+                    $result = nv_router_searh_route($url_new, $http_method, rtrim($url_parent, '/') . '/' . ltrim($value['path'], '/'));
 
                     if (!is_null($result)) return $result;
                 } else {
