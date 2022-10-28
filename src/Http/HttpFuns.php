@@ -6,7 +6,7 @@ class HttpFuns
     /**
      * Retorna la IP de cliente que realiza la petición HTTP
      */
-    public function getIP(): string
+    public static function getIP(): string
     {
         return $_SERVER['HTTP_CLIENT_IP'] ?? ( $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR']);;
     }
@@ -15,7 +15,7 @@ class HttpFuns
      * Retorna el topo de dispositivo que realiza la petición HTTP
      * @param bool $string 
      */
-    public function getDevice(bool $string = true): string|int
+    public static function getDevice(bool $string = true): string|int
     {
         $tablet_browser = 0;
         $mobile_browser = 0;
@@ -71,7 +71,7 @@ class HttpFuns
         }  
     }
 
-    public function getPlatform(): string
+    public static function getPlatform(): string
     {
         $user_agent = $_SERVER['HTTP_USER_AGENT'];
         $plataformas = array(
