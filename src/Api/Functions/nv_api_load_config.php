@@ -44,5 +44,4 @@ function nv_api_load_config(): void
     $_ENV['nvx']['request']['ip'] = HttpFuns::getIP();
     $_ENV['nvx']['request']['platform'] = HttpFuns::getPlatform();
     $_ENV['nvx']['request']['device'] = HttpFuns::getDevice();
-
 }

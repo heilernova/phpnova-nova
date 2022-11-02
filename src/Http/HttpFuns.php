@@ -96,6 +96,7 @@ class HttpFuns
             case 'png': return "image/$extension";
             case 'jpg': return "image/$extension";
             case 'jpeg': return "image/$extension";
+            case 'webp': return "image/$extension";
             case 'git': return "image/$extension";
             case 'svg': return "image/svg+xml";
 
