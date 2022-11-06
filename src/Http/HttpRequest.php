@@ -10,6 +10,7 @@ class HttpRequest
     public readonly array $files;
     public readonly array $params;
     public readonly array $paramsURL;
+    public readonly array $queryParams;
     public readonly string $ip;
     public readonly string $device;
     public readonly string $platform;
@@ -23,6 +24,7 @@ class HttpRequest
         $this->files = $_ENV['nvx']['request']['files'];
         $this->params = $_ENV['nvx']['request']['params'];
         $this->paramsURL = $_ENV['nvx']['request']['query-params'];
+        $this->queryParams = $_ENV['nvx']['request']['query-params'];
         $this->platform = $_ENV['nvx']['request']['platform'];
         $this->device = $_ENV['nvx']['request']['device'];
     }
