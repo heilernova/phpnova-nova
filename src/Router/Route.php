@@ -21,11 +21,11 @@ class Route
 
             switch($type){
                 case 'middleware':
-                    $_ENV['nvx']['router']['routes'][] = $acction;
+                    $_ENV['nv']['router']['routes'][] = $acction;
                     break;
 
                 case 'router':
-                    $_ENV['nvx']['router']['routes'][] = [
+                    $_ENV['nv']['router']['routes'][] = [
                         'key'  => $path_key,
                         'type' => 'router',
                         'path' => $path,
@@ -33,9 +33,8 @@ class Route
                     ];
                     break;
                 
-                default:
-                    
-                    $_ENV['nvx']['router']['routes'][] = [
+                default: 
+                    $_ENV['nv']['router']['routes'][] = [
                         'key'  => $path_key,
                         'type' => 'route',
                         'method' => $method,
@@ -43,7 +42,6 @@ class Route
                         'fun'  => $acction,
                     ];
             }
-
         } catch (\Throwable $th) {
             throw $th;
         }

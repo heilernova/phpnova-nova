@@ -1,7 +1,5 @@
 <?php
-namespace Phpnova\Nova\Api;
-
-use Phpnova\Nova\Api\Settings\Databases;
+namespace Phpnova\Nova\Settings;
 
 class Settings
 {
@@ -9,8 +7,9 @@ class Settings
 
     public function __construct()
     {
-        $this->databases = new Databases;
+        $this->databases = new Databases();
     }
+
     /**
      * Estable el nombre del directorio donde se aguardaran los archivos
      */
@@ -23,4 +22,6 @@ class Settings
     {
         return $this->databases;
     }
+
+    // public function getDatabase(string $name = null):
 }

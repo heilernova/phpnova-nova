@@ -1,5 +1,5 @@
 <?php
-namespace Phpnova\Nova\Api\Settings;
+namespace Phpnova\Nova\Settings;
 
 use Exception;
 use PDO;

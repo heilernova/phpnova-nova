@@ -3,85 +3,62 @@ namespace Phpnova\Nova\Http;
 
 class Request
 {
-    public static function getURL(): string
-    {
-        return $_ENV['nvx']['request']['url'];
-    }
-
-    public static function getHeaders(): array
-    {
-        return apache_request_headers();
-    }
+    /**
+     * URL of the HTTP request
+     */
+    public readonly string $url;
 
     /**
-     * Retorna el tipo de contenido de la petición HTTP. Ejemplo: text/html, application/json ...
+     * Method of HTTP request
      */
-    public static function getContentType(): string
-    {
-        return apache_response_headers()['Content-Type'];
-    }
+    public readonly string $method;
 
     /**
-     * Retorna el metodo de la petición HTTP
+     * HTTP request content
      */
-    public static function getMethod(): string
-    {
-        return $_ENV['nvx']['request']['method'];
-    }
+    public readonly mixed $body;
 
     /**
-     * Devuelve el contenido de la petición HTTP
-     */
-    public static function getBody(): mixed
-    {
-        return $_ENV['nvx']['request']['body'];
-    }
+     * Array of files sent in the HTTP query
+     * @var HttpFile[] 
+     * */
+    public readonly array $files;
+    
+    /** URL parameters */
+    public readonly array $params;
 
     /**
-     * @return \Phpnova\Nova\Http\HttpFile[];
-     */
-    public static function getFiles(): array
-    {
-        return $_ENV['nvx']['request']['files'];
-    }
+     * Query parameter
+    */
+    public readonly array $queryParams;
 
     /**
-     * Devuelve un array asociativo de los parametro asignados en la URL mediante el ruter
-     */
-    public static function getParams(): array
-    {
-        return $_ENV['nvx']['request']['params'];
-    }
+     * IP from which the HTTP request is being made
+     * */
+    public readonly string $ip;
 
-    /**
-     * Devuelve una array asociativo con los parametro enviado por la URL ejemplo: test?param=1
+    /** 
+     * Device from which the HTTP request is being made
+     * @return 'desktop'|'mobile'|'table'
      */
-    public static function getParamsURL(): array
-    {
-        return $_ENV['nvx']['request']['query-params'];
-    }
+    public readonly string $device;
 
-    /**
-     * Devuelve el tipo de disponsitio que realiza la petición HTTP
-     */
-    public static function getDevice(): string
-    {
-        return $_ENV['nvx']['request']['device'];
-    }
+    /** 
+     * Name of the platform from which the HTTP request is being made
+     * Example: Whindows, iPhone, Android
+     * */
+    public readonly string $platform;
 
-    /**
-     * Devuelve la plataforma o sistema operativo desde donde se realiza la petición HTTP
-     */
-    public static function getPlatform(): string
+    public function __construct()
     {
-        return $_ENV['nvx']['request']['platform'];
-    }
-
-    /**
-     * Devuelve la IP de donde se raliza la petición HTTP
-     */
-    public static function getIP(): string
-    {
-        return $_ENV['nvx']['request']['ip'];
+        $this->url = $_ENV['nv']['request']['url'];
+        $this->method = $_ENV['nv']['request']['method'];
+        $this->ip = $_ENV['nv']['request']['ip'];
+        $this->body = $_ENV['nv']['request']['body'];
+        $this->files = $_ENV['nv']['request']['files'];
+        $this->params = $_ENV['nv']['request']['params'];
+        $this->queryParams = $_ENV['nv']['request']['queryParams'];
+        $this->platform = $_ENV['nv']['request']['platform'];
+        $this->device = $_ENV['nv']['request']['device'];
     }
 }

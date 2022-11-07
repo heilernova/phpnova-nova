@@ -61,13 +61,13 @@ class HttpFuns
             }
         }
         if ($tablet_browser > 0) {
-           return $string ? 'Tabke' : 2; # Table
+           return $string ? 'table' : 2; # Table
         }
         else if ($mobile_browser > 0) {
-           return $string ? 'Mobile' : 1; # Mobile
+           return $string ? 'mobile' : 1; # Mobile
         }
         else {
-            return $string ? 'Desktop' : 3; # desktop
+            return $string ? 'desktop' : 3; # desktop
         }  
     }
 

@@ -1,15 +1,16 @@
 <?php
 
-use Phpnova\Nova\Http\HttpRequest;
-use Phpnova\Nova\Http\HttpResponse;
+use Phpnova\Nova\Http\Response;
+use Phpnova\Nova\Http\Request;
 
 /**
  * Retorna la ruta que hace referencia al recurso buscaod por el usuario
  */
-function nv_router_searh_route(string $url, string $http_method, string $url_parent = ''): array|HttpResponse|null {
+function nv_router_searh_route(string $url, string $http_method, string $url_parent = ''): array|Response|null
+{
 
     # Cargamos las rutas a variable
-    $routes = $_ENV['nvx']['router']['routes'] ?? [];
+    $routes = $_ENV['nv']['router']['routes'] ?? [];
     
     foreach ($routes as $value) {
         if (is_array($value)){
@@ -21,7 +22,7 @@ function nv_router_searh_route(string $url, string $http_method, string $url_par
                 
                 if ($value['type'] == 'router') {
                     # Si es un ruter cargamos las nueva rutas.
-                    $_ENV['nvx']['router']['routes'] = [];
+                    $_ENV['nv']['router']['routes'] = [];
                     $value['fun'](); # Ejeuctamos la función
 
                     $num_delete = substr_count($value['key'], "/");
@@ -56,9 +57,9 @@ function nv_router_searh_route(string $url, string $http_method, string $url_par
             }
         } else {
             # Middleware
-            $result = $value(new HttpRequest());
+            $result = $value(new Request());
             if (!is_null($result)) {
-                return $result instanceof HttpResponse ? $result : new HttpResponse($result);
+                return $result instanceof Response ? $result : new Response($result);
             }
         }
     }

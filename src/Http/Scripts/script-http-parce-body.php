@@ -99,4 +99,4 @@ foreach ($parts as $part) {
 
 # cargasmo los datos
 
-$_ENV['nvx']['request']['body'] = $data;
+$_ENV['nv']['request']['body'] = $data;

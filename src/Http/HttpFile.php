@@ -60,7 +60,7 @@ class HttpFile
 
         nv_create_dir($dir);
         $full_name = "$dir/$file_name";
-        if (request::getMethod() == "POST" || request::getMethod() == "GET") {
+        if (req::getMethod() == "POST" || req::getMethod() == "GET") {
             return move_uploaded_file($this->tmpName, $full_name);
         } else {
             return rename($this->tmpName, $full_name);
