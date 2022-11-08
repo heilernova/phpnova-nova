@@ -7,9 +7,9 @@ use SplFileInfo;
 
 class Response
 {
-    private mixed $body;
-    private int $stadus;
-    private array $headers;
+    public readonly mixed $body;
+    public readonly int $stadus;
+    public readonly array $headers;
 
     /**
      * @param 'json'|'html'|'file'|'text' $type
@@ -25,9 +25,12 @@ class Response
         }
     }
 
-    public function __clone($body, $type = null):Response
+    public function clone($body = null, $stadus = null, $type = null ): Response
     {
-        return new Response($body);
+        $body = $body ? $body : $this->body;
+        $stadus = $stadus ? $stadus : $this->stadus;
+        $type = $type ? $type : $this->type;
+        return new Response($body, $stadus, $type);
     }
 
     public function getData(): array

@@ -1,14 +1,15 @@
 <?php
 namespace Phpnova\Nova\Bin;
 
+use Exception;
 use Phpnova\Nova\Http\req;
 use Phpnova\Nova\Http\Response;
 use Phpnova\Nova\Router\Route;
 
 class Server
 {
-    private callable|null $handdle = null;
-    private callable|null $handdleError = null;
+    private mixed $handdle = null;
+    private mixed $handdleError = null;
 
     public function use(mixed ...$arg): void
     {
@@ -39,6 +40,13 @@ class Server
             require __DIR__ . '/../Router/Functions/nv_router_run.php';
             require __DIR__ . '/../Router/Functions/searh_route.php';
             $response = nv_router_run();
+            $fun = $this->handdle;
+            if (is_callable($fun)) {
+                $response = $fun($response);
+                if (!($response instanceof Response)) {
+                    throw new Exception("La función handdle del reponse no retorno Phpnova\Nova\Http\Response");
+                }
+            }
         } catch (\Throwable $th) {
             if ($this->handdleError) {
                 $fun = $this->handdleError;
