@@ -3,8 +3,8 @@ namespace Phpnova\Nova\Bin\Console;
 
 use Exception;
 use PDO;
-use Phpnova\Nova\Api\Settings\DatabaseInfo;
 use Phpnova\Nova\Database\Connect;
+use Phpnova\Nova\Settings\DatabaseInfo;
 
 $dir = Scripts::getDir();
 
@@ -37,7 +37,7 @@ if (count($db_idx_keys) == 0) throw new Exception("No hay conexión establecidad
 $key = $db_env_keys[0];
 
 if (count($db_env_keys) > 1) {
-    # debemos definir a que base de datos queremos realizar la instalacion
+    # debemos definir a que base de datos queremos realizar la instalación
     // $db_info = false;
 }
 

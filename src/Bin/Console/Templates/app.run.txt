@@ -2,7 +2,7 @@
 
 use Phpnova\Nova\apirest;
 
-$app = apirest::init();
+$app = apirest::craete();
 
 $app->use('/', fn() => require __DIR__ . '/app.router.php');
 $app->run();

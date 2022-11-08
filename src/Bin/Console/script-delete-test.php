@@ -23,4 +23,5 @@ foreach($res as $file) {
 
 $f = fopen("$dir/.gitignore", 'w');
 fputs($f, "/vendor/");
+fputs($f, "/test/");
 fclose($f);
