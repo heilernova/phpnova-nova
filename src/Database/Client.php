@@ -116,7 +116,7 @@ class Client
             $values_sql = "";
             $params = [];
             foreach ($values as $key => $val) {
-                $write_style = $_ENV['nv']['db']['writing_style']['queris'] ?? null;
+                $write_style = $_ENV['nv']['db']['writing_style']['queries'] ?? null;
                 if ($write_style) {
                     $key = $write_style == 'snakecase' ? nv_parse_camelcase_to_snakecase($key) : nv_parse_snakecase_to_camelcase($key);
                 }
@@ -156,7 +156,7 @@ class Client
             $sql_parms = [];
 
             foreach($values as $key => $val) {
-                $write_style = $_ENV['nv']['db']['writing_style']['queris'] ?? null;
+                $write_style = $_ENV['nv']['db']['writing_style']['queries'] ?? null;
                 if ($write_style) {
                     $key = $write_style == 'snakecase' ? nv_parse_camelcase_to_snakecase($key) : nv_parse_snakecase_to_camelcase($key);
                 }
