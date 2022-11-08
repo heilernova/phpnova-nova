@@ -26,7 +26,8 @@ function nv_router_run(): Response
     }
 
     # Mapeamos el contenido
-    switch(explode(';', apache_request_headers()['Content-Type'] ?? '')[0]){
+    $conent_type = apache_request_headers()['content-type'] ?? (apache_request_headers()['Content-Type'] ?? null);
+    switch(explode(';', $conent_type ?? '')[0]){
         case "application/json":
             $body_conent = file_get_contents("php://input");
             if ($body_conent == '') break;

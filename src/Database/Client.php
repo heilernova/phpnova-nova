@@ -190,7 +190,7 @@ class Client
                 $sql_condition_params["pw_$key"] = $val;
             }
             
-            $res = $this->exec("UPDATE `$table` SET $sql_values WHERE $sql_condition", [...$sql_parms, ...$sql_condition_params]);
+            $res = $this->exec("UPDATE `$table` SET $sql_values WHERE $sql_condition", array_merge($sql_parms, $sql_condition_params));
 
             return $res ? new Result($res, $this->config) : false;
 

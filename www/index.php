@@ -2,6 +2,7 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
+use Phpnova\Nova\Bin\Server;
 use Phpnova\Nova\Database\DB;
 use Phpnova\Nova\Database\DBConfig;
 
@@ -12,6 +13,8 @@ try {
     // $res = DB::table('tb_associations_affiliates')->get('1 = 1');
     // $res = DB::table('tb_associations_affiliates')->getAll();
     // $res = DB::table('tb_associations_questions')->insert(['association' => 1, 'question' => 'hola'], '*');
+
+    $appa = new Server();
 
 
     header("content-type: application/json");

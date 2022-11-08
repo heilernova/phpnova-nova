@@ -72,8 +72,8 @@ class Server
             header("$key: $val");
         }
 
-        echo $data['body'];
         http_response_code($data['status']);
+        echo $data['body'];
         exit;
     }
 }
